@@ -1,0 +1,1849 @@
+{
+  "compatibilityLevel": 1550,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.120.731.0 (23.08)"
+      },
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Color\",\"Salesperson\",\"SalespersonRegion\",\"Reseller\",\"DimRegion\",\"Sales\",\"Targets\",\"Product\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "fr-FR",
+    "cultures": [
+      {
+        "name": "fr-FR",
+        "linguisticMetadata": {
+          "content": {
+            "DynamicImprovement": "HighConfidence",
+            "Language": "en-US",
+            "Version": "1.0.0"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "Color",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Source = SharePoint.Files(\"https://seenovatecom.sharepoint.com/sites/Suividesformations/\", [ApiVersion = 15]),",
+          "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Extension] = \".csv\") and ([Name] = \"Color.csv\")),",
+          "    #\"Color csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" = #\"Filtered Rows\"{[Name=\"Color.csv\",#\"Folder Path\"=\"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"]}[Content],",
+          "    #\"Imported CSV\" = Csv.Document(#\"Color csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\",[Delimiter=\",\", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+          "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true])",
+          "in",
+          "    #\"Promoted Headers\""
+        ],
+        "kind": "m",
+        "lineageTag": "9be5e9aa-ec71-4b39-a778-1d3f5e176fd8"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "7c089981-a45c-4540-b8d0-92c8ee0a1a3a",
+        "fromColumn": "EmployeeKey",
+        "fromTable": "SalespersonRegion",
+        "toColumn": "EmployeeKey",
+        "toTable": "Salesperson"
+      },
+      {
+        "name": "4121f349-74a3-4f0a-ba57-c1f4e91a7b7c",
+        "fromColumn": "EmployeeKey",
+        "fromTable": "Sales",
+        "isActive": false,
+        "toColumn": "EmployeeKey",
+        "toTable": "Salesperson"
+      },
+      {
+        "name": "767de2be-8689-4870-83c6-c76a0984932e",
+        "crossFilteringBehavior": "bothDirections",
+        "fromColumn": "SalesTerritoryKey",
+        "fromTable": "SalespersonRegion",
+        "securityFilteringBehavior": "bothDirections",
+        "toColumn": "SalesTerritoryKey",
+        "toTable": "DimRegion"
+      },
+      {
+        "name": "58f5a5dc-7116-448f-9288-e086356486b8",
+        "fromColumn": "SalesTerritoryKey",
+        "fromTable": "Sales",
+        "toColumn": "SalesTerritoryKey",
+        "toTable": "DimRegion"
+      },
+      {
+        "name": "8c004549-9bb2-4e28-a25d-a097264e397d",
+        "fromColumn": "ResellerKey",
+        "fromTable": "Sales",
+        "toColumn": "ResellerKey",
+        "toTable": "Reseller"
+      },
+      {
+        "name": "967b2162-33b5-46cc-8be9-418d3eab1905",
+        "fromColumn": "ProductKey",
+        "fromTable": "Sales",
+        "toColumn": "ProductKey",
+        "toTable": "Product"
+      },
+      {
+        "name": "5dfd99c3-9636-4c3e-aaac-b660e9fbe64c",
+        "fromColumn": "Employee ID",
+        "fromTable": "Targets",
+        "toColumn": "Employee ID",
+        "toTable": "Salesperson"
+      },
+      {
+        "name": "f6d5bfc3-7ef5-4a2f-a041-d624cc074e1b",
+        "fromColumn": "OrderDate",
+        "fromTable": "Sales",
+        "toColumn": "Date",
+        "toTable": "Date"
+      },
+      {
+        "name": "050e5d85-d505-401a-a852-5c0971b85cea",
+        "fromColumn": "TargetMonth",
+        "fromTable": "Targets",
+        "toColumn": "Date",
+        "toTable": "Date"
+      }
+    ],
+    "roles": [
+      {
+        "name": "Salespeople",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "3244aa3b7e7544b8b6c79b1b0781fe7f"
+          }
+        ],
+        "modelPermission": "read",
+        "tablePermissions": [
+          {
+            "name": "Salesperson",
+            "filterExpression": "[Email] = USERPRINCIPALNAME()"
+          }
+        ]
+      }
+    ],
+    "sourceQueryCulture": "fr-FR",
+    "tables": [
+      {
+        "name": "DateTableTemplate_da03256e-9c7e-419c-9056-f479c7c587ca",
+        "annotations": [
+          {
+            "name": "__PBI_TemplateDateTable",
+            "value": "true"
+          },
+          {
+            "name": "DefaultItem",
+            "value": "DateHierarchy"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "b070697e-04a2-4b7a-b756-82f1aa07bd41",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Année",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "24eec747-c0ce-4118-a6ec-217bc6fd25b9",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "NoMois",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "2ac5d241-2af8-453b-ba48-45a090d78468",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Mois",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "b8c3472a-dd72-4f3a-b630-4b9333564e6a",
+            "sortByColumn": "NoMois",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "NoTrimestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([NoMois] + 2) / 3)",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "c03157b8-c16f-4dcb-b690-d7f4e2544e75",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Trimestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Trim \" & [NoTrimestre]",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "86f4d355-d2a9-44f6-b70e-c01b511eedd2",
+            "sortByColumn": "NoTrimestre",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Jour",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "224216f1-dfc5-4e21-af4a-dd2df109a9cc",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Hiérarchie de dates",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Année",
+                "column": "Année",
+                "lineageTag": "54bfbf63-3bbd-40d7-ae16-f75c452cd40a",
+                "ordinal": 0
+              },
+              {
+                "name": "Trimestre",
+                "column": "Trimestre",
+                "lineageTag": "c8b1945f-8472-4640-ae98-7cf347ae2d11",
+                "ordinal": 1
+              },
+              {
+                "name": "Mois",
+                "column": "Mois",
+                "lineageTag": "949ad8f9-581b-44e6-98cb-995b8d60a82b",
+                "ordinal": 2
+              },
+              {
+                "name": "Jour",
+                "column": "Jour",
+                "lineageTag": "30e4e3e4-3920-4c32-b163-082f517821a1",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "24f77d06-79e3-4914-b84f-488a052034c3"
+          }
+        ],
+        "isPrivate": true,
+        "lineageTag": "cdc22bfd-ede4-464d-8bf1-ff1632898530",
+        "partitions": [
+          {
+            "name": "DateTableTemplate_da03256e-9c7e-419c-9056-f479c7c587ca-567d02f0-b8df-42a1-9e44-31e737d7a31c",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(2015,1,1), Date(2015,1,1))",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Salesperson",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "EmployeeKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "049945ce-048c-4793-85cb-f73596900be5",
+            "sourceColumn": "EmployeeKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Employee ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "73e56868-13e7-4d1b-bbcd-7a86c8f611b6",
+            "sourceColumn": "Employee ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Name",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "dd808435-65f1-42ad-9479-871b2c94b390",
+            "sourceColumn": "Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Title",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4244bf84-a7f0-44eb-a7d5-c8e7f25408f0",
+            "sourceColumn": "Title",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Email",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4287bd3d-338a-4524-b860-8e150c486dfa",
+            "sourceColumn": "Email",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "69e1ab8f-0c34-4c0a-b6f4-0296ef623f6b",
+        "partitions": [
+          {
+            "name": "Salesperson-6a72b181-2a05-4e4c-967d-d1b8fb038ead",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = SharePoint.Files(\"https://seenovatecom.sharepoint.com/sites/Suividesformations/\", [ApiVersion = 15]),",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Extension] = \".csv\")),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Filtered Rows\",{{\"Name\", Order.Ascending}}),",
+                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Sorted Rows\", each ([Name] = \"DimEmployee.csv\") and ([Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/Archives/2022-05-18 Formation Power BI/Sources de données/\")),",
+                "    #\"DimEmployee csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" = #\"Filtered Rows1\"{[Name=\"DimEmployee.csv\",#\"Folder Path\"=\"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"]}[Content],",
+                "    #\"Imported CSV\" = Csv.Document(#\"DimEmployee csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\",[Delimiter=\"#(tab)\", Columns=28, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"EmployeeKey\", Int64.Type}, {\"ParentEmployeeKey\", type text}, {\"EmployeeNationalIDAlternateKey\", Int64.Type}, {\"ParentEmployeeNationalIDAlternateKey\", type text}, {\"FirstName\", type text}, {\"LastName\", type text}, {\"MiddleName\", type text}, {\"NameStyle\", Int64.Type}, {\"Title\", type text}, {\"HireDate\", type date}, {\"BirthDate\", type date}, {\"LoginID\", type text}, {\"EmailAddress\", type text}, {\"Phone\", type text}, {\"MaritalStatus\", type text}, {\"EmergencyContactName\", type text}, {\"EmergencyContactPhone\", type text}, {\"SalariedFlag\", Int64.Type}, {\"Gender\", type text}, {\"PayFrequency\", Int64.Type}, {\"BaseRate\", type text}, {\"VacationHours\", Int64.Type}, {\"SickLeaveHours\", Int64.Type}, {\"CurrentFlag\", Int64.Type}, {\"SalesPersonFlag\", Int64.Type}, {\"DepartmentName\", type text}, {\"EmployeePhoto\", type text}, {\"Position\", type text}}),",
+                "    #\"Filtered Rows2\" = Table.SelectRows(#\"Changed Type\", each ([SalesPersonFlag] = 1)),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Rows2\",{\"EmployeeKey\", \"EmployeeNationalIDAlternateKey\", \"FirstName\", \"LastName\", \"Title\", \"EmailAddress\"}),",
+                "    #\"Combined Columns\" = Table.CombineColumns(#\"Removed Other Columns\",{\"FirstName\", \"LastName\"},Combiner.CombineTextByDelimiter(\" \", QuoteStyle.None),\"Fusionné\"),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Combined Columns\",{{\"EmployeeNationalIDAlternateKey\", \"Employee ID\"}, {\"Fusionné\", \"Name\"}, {\"EmailAddress\", \"Email\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "SalespersonRegion",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "EmployeeKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "0dc5504c-72f0-4903-acf4-443fd82a9536",
+            "sourceColumn": "EmployeeKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SalesTerritoryKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "c2c08a52-5f9f-4d51-b8a6-e81d9c0d9d20",
+            "sourceColumn": "SalesTerritoryKey",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "e960826f-72d1-4a57-8ec1-d5d450a2f7d3",
+        "partitions": [
+          {
+            "name": "SalespersonRegion-a3de8d3c-e19e-4e79-8ac7-f6ef889099a8",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = SharePoint.Files(\"https://seenovatecom.sharepoint.com/sites/Suividesformations/\", [ApiVersion = 15]),",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Extension] = \".csv\") and ([Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation Microsoft BI 2008/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation MSBI 2014/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations MS BI/Formation SSIS/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/Alimentation/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/SRC_FIC/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Tableau/Exercices Tableau Desktop 2020/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Ressources/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Supports v1.0/Migration_Access_To_SQLite/Base csv/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/Archives/2022-05-18 Formation Power BI/Sources de données/\") and ([Name] = \"DimEmployeeSalesTerritory.csv\")),",
+                "    #\"DimEmployeeSalesTerritory csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" = #\"Filtered Rows\"{[Name=\"DimEmployeeSalesTerritory.csv\",#\"Folder Path\"=\"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"]}[Content],",
+                "    #\"Imported CSV\" = Csv.Document(#\"DimEmployeeSalesTerritory csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\",[Delimiter=\",\", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"EmployeeKey\", Int64.Type}, {\"SalesTerritoryKey\", Int64.Type}})",
+                "in",
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Reseller",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ResellerKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "3d6208e2-56f3-41cd-9f35-f670b094e6ce",
+            "sourceColumn": "ResellerKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Business Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "1a1672da-c236-4007-9814-db349adf4162",
+            "sourceColumn": "Business Type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Reseller Name",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "a55cd992-f97c-457a-beda-9a190200eb1f",
+            "sourceColumn": "Reseller Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "City",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataCategory": "City",
+            "dataType": "string",
+            "lineageTag": "a1c632ca-1df0-45ab-967d-265c4f0a469b",
+            "sourceColumn": "City",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "State-Province",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataCategory": "StateOrProvince",
+            "dataType": "string",
+            "lineageTag": "0c69aea3-a5b9-4e29-b967-2cff6e4af703",
+            "sourceColumn": "State-Province",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Country-Region",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataCategory": "Country",
+            "dataType": "string",
+            "lineageTag": "48ac2649-ac6f-4f6d-80c4-7414fb7af904",
+            "sourceColumn": "Country-Region",
+            "summarizeBy": "none"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Resellers",
+            "levels": [
+              {
+                "name": "Business Type",
+                "column": "Business Type",
+                "lineageTag": "e1d95c32-b932-4a02-9ada-f2ddb5676492",
+                "ordinal": 0
+              }
+            ],
+            "lineageTag": "556d2e51-1a2c-4888-8ef1-6b75d70de98d"
+          },
+          {
+            "name": "Geography",
+            "levels": [
+              {
+                "name": "Country-Region",
+                "column": "Country-Region",
+                "lineageTag": "e2f18649-60b1-47fb-9b83-fadd90acd1ad",
+                "ordinal": 0
+              },
+              {
+                "name": "State-Province",
+                "column": "State-Province",
+                "lineageTag": "cd45b334-f130-446f-a27c-154dd638dcae",
+                "ordinal": 1
+              },
+              {
+                "name": "Reseller Name",
+                "column": "Reseller Name",
+                "lineageTag": "fd44c0b4-1b21-4df9-a63f-b202bafbca07",
+                "ordinal": 2
+              },
+              {
+                "name": "City",
+                "column": "City",
+                "lineageTag": "d746db55-f141-4711-9245-0956aeae1162",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "e43f385b-8c22-486c-8bb0-c0ee338ec1b0"
+          }
+        ],
+        "lineageTag": "ecfc67ad-2c7c-4bbc-a21f-4d3b08ef2ac2",
+        "partitions": [
+          {
+            "name": "Reseller-b5f15f49-c19a-4f5a-b328-81a26ddb2101",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = SharePoint.Files(\"https://seenovatecom.sharepoint.com/sites/Suividesformations/\", [ApiVersion = 15]),",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Extension] = \".csv\") and ([Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation Microsoft BI 2008/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation MSBI 2014/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations MS BI/Formation SSIS/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/Alimentation/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/SRC_FIC/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Tableau/Exercices Tableau Desktop 2020/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Ressources/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Supports v1.0/Migration_Access_To_SQLite/Base csv/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/Archives/2022-05-18 Formation Power BI/Sources de données/\") and ([Name] = \"DimReseller.csv\")),",
+                "    #\"DimReseller csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" = #\"Filtered Rows\"{[Name=\"DimReseller.csv\",#\"Folder Path\"=\"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"]}[Content],",
+                "    #\"Imported CSV\" = Csv.Document(#\"DimReseller csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\",[Delimiter=\",\", Columns=23, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"ResellerKey\", Int64.Type}, {\"GeographyKey\", Int64.Type}, {\"ResellerAlternateKey\", type text}, {\"Phone\", type text}, {\"BusinessType\", type text}, {\"ResellerName\", type text}, {\"City\", type text}, {\"StateProvinceName\", type text}, {\"EnglishCountryRegionName\", type text}, {\"NumberEmployees\", Int64.Type}, {\"OrderFrequency\", type text}, {\"OrderMonth\", type text}, {\"FirstOrderYear\", type text}, {\"LastOrderYear\", type text}, {\"ProductLine\", type text}, {\"AddressLine1\", type text}, {\"AddressLine2\", type text}, {\"AnnualSales\", type text}, {\"BankName\", type text}, {\"MinPaymentType\", type text}, {\"MinPaymentAmount\", type text}, {\"AnnualRevenue\", type text}, {\"YearOpened\", Int64.Type}}),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Changed Type\",{\"ResellerKey\",  \"BusinessType\", \"ResellerName\", \"City\",\"StateProvinceName\", \"EnglishCountryRegionName\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Other Columns\",{{\"ResellerName\", \"Reseller Name\"}, {\"BusinessType\", \"Business Type\"}, {\"StateProvinceName\", \"State-Province\"}, {\"EnglishCountryRegionName\", \"Country-Region\"}}),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Renamed Columns\",\"Ware House\",\"Warehouse\",Replacer.ReplaceText,{\"Business Type\"})",
+                "in",
+                "    #\"Replaced Value\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimRegion",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "SalesTerritoryKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "7745befb-8862-456d-884e-a35cfc8e99eb",
+            "sourceColumn": "SalesTerritoryKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Region",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "c00c159d-2ecc-4e38-961c-a1024d9891a3",
+            "sourceColumn": "Region",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Country",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cd378756-9217-4ba9-acdd-7121c053b43a",
+            "sourceColumn": "Country",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Group",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "e5ae5ecd-fb26-4230-9783-a7482f7c5e06",
+            "sourceColumn": "Group",
+            "summarizeBy": "none"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Regions",
+            "levels": [
+              {
+                "name": "Group",
+                "column": "Group",
+                "lineageTag": "9afff447-fdef-4352-a53b-44cefc0a001c",
+                "ordinal": 0
+              },
+              {
+                "name": "Country",
+                "column": "Country",
+                "lineageTag": "0d16560a-5556-4f6c-ab9b-247bf01dcb6c",
+                "ordinal": 1
+              },
+              {
+                "name": "Region",
+                "column": "Region",
+                "lineageTag": "b0c412fc-ff92-4705-b8e2-6abab02eea07",
+                "ordinal": 2
+              }
+            ],
+            "lineageTag": "2b68fca2-d1bb-4ea2-9bd1-2b4d7461e20e"
+          }
+        ],
+        "lineageTag": "50d67968-7eb4-47de-a139-2cc346034f5a",
+        "partitions": [
+          {
+            "name": "DimRegion-952e6673-aa01-415a-8513-dc5e36065d34",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = SharePoint.Files(\"https://seenovatecom.sharepoint.com/sites/Suividesformations/\", [ApiVersion = 15]),",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Extension] = \".csv\") and ([Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation Microsoft BI 2008/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation MSBI 2014/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations MS BI/Formation SSIS/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/Alimentation/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/SRC_FIC/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Tableau/Exercices Tableau Desktop 2020/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Ressources/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Supports v1.0/Migration_Access_To_SQLite/Base csv/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/Archives/2022-05-18 Formation Power BI/Sources de données/\") and ([Name] = \"DimSalesTerritory.csv\")),",
+                "    #\"DimSalesTerritory csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" = #\"Filtered Rows\"{[Name=\"DimSalesTerritory.csv\",#\"Folder Path\"=\"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"]}[Content],",
+                "    #\"Imported CSV\" = Csv.Document(#\"DimSalesTerritory csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\",[Delimiter=\",\", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"SalesTerritoryKey\", Int64.Type}, {\"SalesTerritoryAlternateKey\", Int64.Type}, {\"SalesTerritoryRegion\", type text}, {\"SalesTerritoryCountry\", type text}, {\"SalesTerritoryGroup\", type text}, {\"SalesTerritoryImage\", type text}}),",
+                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Changed Type\", each ([SalesTerritoryAlternateKey] <> 0)),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Filtered Rows1\",{\"SalesTerritoryAlternateKey\", \"SalesTerritoryImage\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Columns\",{{\"SalesTerritoryRegion\", \"Region\"}, {\"SalesTerritoryCountry\", \"Country\"}, {\"SalesTerritoryGroup\", \"Group\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Sales",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "SalesOrderNumber",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "5f28bda8-32f9-4163-bae8-eb5cfc78b362",
+            "sourceColumn": "SalesOrderNumber",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OrderDate",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "d1cd16b2-c2b2-4b2c-aa98-1ee091551eeb",
+            "sourceColumn": "OrderDate",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ProductKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "a455b03e-4151-4cd3-9a27-a1dd513e2558",
+            "sourceColumn": "ProductKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ResellerKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "e71b3393-f5c0-4442-bce4-7ddffd637709",
+            "sourceColumn": "ResellerKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EmployeeKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "758e40e2-7280-4f20-8901-7a715366167b",
+            "sourceColumn": "EmployeeKey",
+            "summarizeBy": "count"
+          },
+          {
+            "name": "SalesTerritoryKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "7a4b873b-85ce-4e04-af02-10e40acf0d24",
+            "sourceColumn": "SalesTerritoryKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Quantity",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "#,0",
+            "lineageTag": "6460cd95-d146-4452-8be8-89aad5213b0e",
+            "sourceColumn": "Quantity",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Unit Price",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "formatString": "#,0.00\\ \"€\";-#,0.00\\ \"€\";#,0.00\\ \"€\"",
+            "lineageTag": "aec3ac4b-7dd4-49b3-86bf-f2e01f102ac4",
+            "sourceColumn": "Unit Price",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Sales",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "formatString": "#,0\\ \"€\";-#,0\\ \"€\";#,0\\ \"€\"",
+            "lineageTag": "aaf55c72-b71d-4d00-b0ab-3b75d113f954",
+            "sourceColumn": "Sales",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Cost",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "description": "Based on standard cost",
+            "formatString": "#,0\\ \"€\";-#,0\\ \"€\";#,0\\ \"€\"",
+            "lineageTag": "9b0e9ef5-62d4-4974-a4bb-46fd57f79b99",
+            "sourceColumn": "Cost",
+            "summarizeBy": "average"
+          }
+        ],
+        "lineageTag": "e4276c85-b450-45ef-903d-62f9867b1142",
+        "measures": [
+          {
+            "name": "Profit",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "expression": [
+              "",
+              "SUM('Sales'[Sales]) - SUM('Sales'[Cost])"
+            ],
+            "extendedProperties": [
+              {
+                "name": "MeasureTemplate",
+                "type": "json",
+                "value": {
+                  "daxTemplateName": "MathematicalSubtraction",
+                  "version": 0
+                }
+              }
+            ],
+            "formatString": "#,0\\ \"€\";-#,0\\ \"€\";#,0\\ \"€\"",
+            "lineageTag": "790d5dc3-e552-47fd-91a2-81b337bdac04"
+          },
+          {
+            "name": "Profit Margin",
+            "expression": [
+              "",
+              "DIVIDE([Profit], SUM('Sales'[Sales]))"
+            ],
+            "extendedProperties": [
+              {
+                "name": "MeasureTemplate",
+                "type": "json",
+                "value": {
+                  "daxTemplateName": "MathematicalDivision",
+                  "version": 0
+                }
+              }
+            ],
+            "formatString": "#,0.00\\ %;-#,0.00\\ %;#,0.00\\ %",
+            "lineageTag": "5e0402dc-cd74-4438-af7a-8f2f3622a82b"
+          },
+          {
+            "name": "Avg Price",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "expression": "AVERAGE(Sales[Unit Price])",
+            "formatString": "#,0.00\\ \"€\";-#,0.00\\ \"€\";#,0.00\\ \"€\"",
+            "lineageTag": "a1e1e7d1-f2c1-4a6d-8d52-59de5d5ad878"
+          },
+          {
+            "name": "Median Price",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "expression": "MEDIAN(Sales[Unit Price])",
+            "formatString": "#,0.00\\ \"€\";-#,0.00\\ \"€\";#,0.00\\ \"€\"",
+            "lineageTag": "b38597c4-eb86-4db2-b7a8-34599d811714"
+          },
+          {
+            "name": "Min Price",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "expression": "MIN(Sales[Unit Price])",
+            "formatString": "#,0.###############\\ \"€\";-#,0.###############\\ \"€\";#,0.###############\\ \"€\"",
+            "lineageTag": "6849984f-32c5-443b-bc11-043308a9d299"
+          },
+          {
+            "name": "Max Price",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "expression": "MAX(Sales[Unit Price])",
+            "formatString": "#,0.###############\\ \"€\";-#,0.###############\\ \"€\";#,0.###############\\ \"€\"",
+            "lineageTag": "bb61fec7-39a5-4c62-9c28-523b1a6e8c72"
+          },
+          {
+            "name": "Orders",
+            "expression": "DISTINCTCOUNT(Sales[SalesOrderNumber])",
+            "formatString": "0",
+            "lineageTag": "ada384a4-7cdd-4cfb-a40b-58e2b07727be"
+          },
+          {
+            "name": "Order Lines",
+            "expression": "COUNTROWS(Sales)",
+            "formatString": "0",
+            "lineageTag": "34ffe8d7-5a6d-4bb4-bc1a-fa9e17607d08"
+          },
+          {
+            "name": "Sales % All Region",
+            "expression": [
+              "",
+              "       DIVIDE(",
+              "             SUM(Sales[Sales]),",
+              "             CALCULATE(",
+              "                   SUM(Sales[Sales]),",
+              "                   REMOVEFILTERS(DimRegion)",
+              "             )",
+              "       )"
+            ],
+            "formatString": "0.00\\ %;-0.00\\ %;0.00\\ %",
+            "lineageTag": "c0a4234c-1740-495a-b135-bcf6bb405799"
+          },
+          {
+            "name": "Sales % Country",
+            "expression": [
+              "",
+              "       DIVIDE(",
+              "             SUM(Sales[Sales]),",
+              "             CALCULATE(",
+              "                   SUM(Sales[Sales]),",
+              "                   REMOVEFILTERS(DimRegion[Region])",
+              "             )",
+              "       )"
+            ],
+            "formatString": "0.00\\ %;-0.00\\ %;0.00\\ %",
+            "lineageTag": "94ccbb27-581f-4395-9e97-d514b5cbacb0"
+          },
+          {
+            "name": "Sales YTD",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "expression": [
+              "",
+              "TOTALYTD(SUM(Sales[Sales]), ",
+              "     'Date'[Date], ",
+              "     \"6-30\"",
+              ")"
+            ],
+            "formatString": "#,0.00\\ \"€\";-#,0.00\\ \"€\";#,0.00\\ \"€\"",
+            "lineageTag": "8d619d13-8482-4d52-88ee-3d02b673dc1e"
+          },
+          {
+            "name": "Date du jour",
+            "expression": "NOW()",
+            "formatString": "General Date",
+            "lineageTag": "fa59675c-5354-4f18-a98b-a6b4e44b352b"
+          },
+          {
+            "name": "Sales YoY Growth",
+            "expression": [
+              "",
+              "VAR SalesPriorYear =",
+              "    CALCULATE(",
+              "        SUM(Sales[Sales]),",
+              "        PARALLELPERIOD(",
+              "            'Date'[Date],",
+              "            -12,",
+              "            MONTH",
+              "        )",
+              "    )",
+              "RETURN",
+              "    DIVIDE(",
+              "       (SUM(Sales[Sales]) - SalesPriorYear),",
+              "       SalesPriorYear",
+              "    )"
+            ],
+            "formatString": "0.00\\ %;-0.00\\ %;0.00\\ %",
+            "lineageTag": "d16d9afc-ba92-4539-b435-bb4c0ac0bfc7"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Sales-14346123-dc79-445c-aab5-4bed1738ce48",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = SharePoint.Files(\"https://seenovatecom.sharepoint.com/sites/Suividesformations/\", [ApiVersion = 15]),",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Extension] = \".csv\") and ([Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation Microsoft BI 2008/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation MSBI 2014/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations MS BI/Formation SSIS/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/Alimentation/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/SRC_FIC/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Tableau/Exercices Tableau Desktop 2020/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Ressources/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Supports v1.0/Migration_Access_To_SQLite/Base csv/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/Archives/2022-05-18 Formation Power BI/Sources de données/\") and ([Name] = \"FactResellerSales.csv\")),",
+                "    #\"FactResellerSales csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" = #\"Filtered Rows\"{[Name=\"FactResellerSales.csv\",#\"Folder Path\"=\"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"]}[Content],",
+                "    #\"Imported CSV\" = Csv.Document(#\"FactResellerSales csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\",[Delimiter=\",\", Columns=15, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"SalesOrderNumber\", type text}, {\"SalesOrderLineNumber\", Int64.Type}, {\"OrderDate\", type date}, {\"DueDate\", type date}, {\"ShipDate\", type date}, {\"ProductKey\", Int64.Type}, {\"ResellerKey\", Int64.Type}, {\"PromotionKey\", Int64.Type}, {\"EmployeeKey\", Int64.Type}, {\"SalesTerritoryKey\", Int64.Type}, {\"OrderQuantity\", Int64.Type}, {\"UnitPrice\", type text}, {\"TotalProductCost\", type text}, {\"SalesAmount\", type text}, {\"StandardCost\", type text}}),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Changed Type\",{\"SalesOrderNumber\", \"OrderDate\", \"ProductKey\", \"ResellerKey\", \"EmployeeKey\", \"SalesTerritoryKey\", \"OrderQuantity\", \"UnitPrice\", \"TotalProductCost\", \"SalesAmount\", \"StandardCost\"}),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Removed Other Columns\",\".\",\",\",Replacer.ReplaceText,{\"UnitPrice\", \"TotalProductCost\", \"SalesAmount\", \"StandardCost\"}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Replaced Value\",{{\"UnitPrice\", Currency.Type}, {\"TotalProductCost\", Currency.Type}, {\"SalesAmount\", Currency.Type}, {\"StandardCost\", Currency.Type}}),",
+                "    #\"Added Conditional Column\" = Table.AddColumn(#\"Changed Type1\", \"Cost\", each if [TotalProductCost] = null then [OrderQuantity] * [StandardCost] else [TotalProductCost]),",
+                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Added Conditional Column\",{{\"Cost\", Currency.Type}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type2\",{\"TotalProductCost\", \"StandardCost\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Columns\",{{\"OrderQuantity\", \"Quantity\"}, {\"UnitPrice\", \"Unit Price\"}, {\"SalesAmount\", \"Sales\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Targets",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Employee ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "5bffc552-eca6-4a1f-9934-f62bd01fbdb7",
+            "sourceColumn": "Employee ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "TargetMonth",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "b94bff85-7f09-411a-8478-eee4e7e45106",
+            "sourceColumn": "TargetMonth",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "TargetAmount",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "double",
+            "formatString": "#,0.00\\ \"€\";-#,0.00\\ \"€\";#,0.00\\ \"€\"",
+            "lineageTag": "37a546e6-40e7-4b10-87f9-d3f7ae530526",
+            "sourceColumn": "TargetAmount",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "534b8dc2-2395-43ed-bf81-6fc00171d163",
+        "measures": [
+          {
+            "name": "Target",
+            "expression": [
+              "",
+              "IF(",
+              "\tHASONEVALUE(Salesperson[Name]),",
+              "\tSUM(Targets[TargetAmount])",
+              ")"
+            ],
+            "formatString": "#,0.00\\ \"€\";-#,0.00\\ \"€\";#,0.00\\ \"€\"",
+            "lineageTag": "4165bd1a-07fc-435d-85c6-3eaabe189091"
+          },
+          {
+            "name": "Variance Salesperson",
+            "expression": [
+              "",
+              "       IF(",
+              "             HASONEVALUE(Salesperson[Name]),",
+              "             SUM(Sales[Sales]) - [Target]",
+              "       )"
+            ],
+            "formatString": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
+            "lineageTag": "73bf883a-5aa5-4494-85a8-845cd8aad630"
+          },
+          {
+            "name": "Variance Salesperson Margin",
+            "expression": "DIVIDE([Variance Salesperson], [Target])",
+            "formatString": "0.00\\ %;-0.00\\ %;0.00\\ %",
+            "lineageTag": "9026306d-fdf0-432a-b112-792d9de69951"
+          },
+          {
+            "name": "Variance",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "SUM(Sales[Sales]) - SUM([TargetAmount])",
+            "lineageTag": "1542a07e-de27-40c5-b8dc-2addd68da6f8"
+          },
+          {
+            "name": "Variance  Margin",
+            "expression": "DIVIDE([Variance], SUM([TargetAmount]))",
+            "formatString": "0.00\\ %;-0.00\\ %;0.00\\ %",
+            "lineageTag": "1e388f36-f2d1-42a7-9b2c-e2039fbf2675"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Targets-e26014b5-8cc5-4dc3-ad43-eee551e2c028",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = SharePoint.Files(\"https://seenovatecom.sharepoint.com/sites/Suividesformations/\", [ApiVersion = 15]),",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation Microsoft BI 2008/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation MSBI 2014/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations MS BI/Formation SSIS/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/Alimentation/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/SRC_FIC/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Tableau/Exercices Tableau Desktop 2020/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Ressources/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Supports v1.0/Migration_Access_To_SQLite/Base csv/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/Archives/2022-05-18 Formation Power BI/Sources de données/\") and ([Extension] = \".csv\") and ([Name] = \"Targets.csv\")),",
+                "    #\"Targets csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" = #\"Filtered Rows\"{[Name=\"Targets.csv\",#\"Folder Path\"=\"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"]}[Content],",
+                "    #\"Imported CSV\" = Csv.Document(#\"Targets csv_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\",[Delimiter=\",\", Columns=14, Encoding=1200, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Year\", Int64.Type}, {\"EmployeeID\", Int64.Type}, {\"M01\", type text}, {\"M02\", type text}, {\"M03\", type text}, {\"M04\", type text}, {\"M05\", type text}, {\"M06\", type text}, {\"M07\", type text}, {\"M08\", type text}, {\"M09\", type text}, {\"M10\", type text}, {\"M11\", type text}, {\"M12\", type text}}),",
+                "    #\"Unpivoted Columns\" = Table.UnpivotOtherColumns(#\"Changed Type\", {\"Year\", \"EmployeeID\"}, \"Attribut\", \"Valeur\"),",
+                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Unpivoted Columns\", each ([Valeur] <> \"-\")),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Filtered Rows1\",\"M\",\"\",Replacer.ReplaceText,{\"Attribut\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Replaced Value\",{{\"Attribut\", \"MonthNumber\"}, {\"Valeur\", \"TargetAmount\"}}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Renamed Columns\",{{\"MonthNumber\", Int64.Type}, {\"TargetAmount\", Int64.Type}}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Changed Type1\", \"Fusionné\", each Text.Combine({\"1/\", Text.From([MonthNumber], \"fr-FR\"), \"/\", Text.From([Year], \"fr-FR\")}), type text),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Added Custom\",{{\"Fusionné\", \"TargetMonth\"}}),",
+                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Renamed Columns1\",{{\"TargetMonth\", type date}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type2\",{\"Year\", \"MonthNumber\"}),",
+                "    #\"Added Custom1\" = Table.AddColumn(#\"Removed Columns\", \"Multiplication\", each [TargetAmount] * 1000, type number),",
+                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Added Custom1\",{\"TargetAmount\"}),",
+                "    #\"Renamed Columns2\" = Table.RenameColumns(#\"Removed Columns1\",{{\"Multiplication\", \"TargetAmount\"}, {\"EmployeeID\", \"Employee ID\"}})",
+                "in",
+                "    #\"Renamed Columns2\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Product",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ProductKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "e34c26e8-5b10-4cca-9f22-57c8db86bf44",
+            "sourceColumn": "ProductKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Category",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "f7bfcabf-1c16-473f-920a-9f75647f26c5",
+            "sourceColumn": "Category",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Subcategory",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "e4271223-e1da-4009-83a4-9c2bea1c8c7e",
+            "sourceColumn": "Subcategory",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EnglishProductName",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "b3d239b0-a1db-42ab-a765-76cbe7ffe7ef",
+            "sourceColumn": "EnglishProductName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Standard Cost",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "formatString": "#,0\\ \"€\";-#,0\\ \"€\";#,0\\ \"€\"",
+            "lineageTag": "ab0598c3-ee90-4264-86b5-6ec0478b6c1c",
+            "sourceColumn": "Standard Cost",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Color",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "displayFolder": "Formatting",
+            "lineageTag": "d4210014-36e2-49a6-b8d6-7a30db963b0a",
+            "sourceColumn": "Color",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Background Color Format",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "1d81e3ad-b7b7-47d2-bba7-b26a459f24dd",
+            "sourceColumn": "Background Color Format",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Font Color Format",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "displayFolder": "Formatting",
+            "lineageTag": "945f5ea3-972f-4c01-9b4a-524905fac739",
+            "sourceColumn": "Font Color Format",
+            "summarizeBy": "none"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Products",
+            "levels": [
+              {
+                "name": "Category",
+                "column": "Category",
+                "lineageTag": "8ebc2c78-4bad-4ec9-83a4-8245763345fd",
+                "ordinal": 0
+              },
+              {
+                "name": "Subcategory",
+                "column": "Subcategory",
+                "lineageTag": "37f3cfc5-cd05-4cb2-bd3e-c1080832fd36",
+                "ordinal": 1
+              },
+              {
+                "name": "EnglishProductName",
+                "column": "EnglishProductName",
+                "lineageTag": "5b6319d9-f651-47e2-a6b8-5268fea8636d",
+                "ordinal": 2
+              }
+            ],
+            "lineageTag": "b8072be4-198f-46fd-acfa-e8364ae6c54d"
+          }
+        ],
+        "lineageTag": "7cc8c518-0a54-42d2-8c2d-c9604112f2b9",
+        "partitions": [
+          {
+            "name": "Product-ac07c3d1-df2e-4eae-94bf-b252dacc3058",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = SharePoint.Files(\"https://seenovatecom.sharepoint.com/sites/Suividesformations/\", [ApiVersion = 15]),",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation Microsoft BI 2008/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations Microsoft A REPACKAGER/Formation MSBI 2014/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Formations MS BI/Formation SSIS/Exercice SSIS/DataIn/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/Alimentation/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/OTIC - Genio/Formation OTIC/Exercices/SRC_FIC/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Tableau/Exercices Tableau Desktop 2020/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Ressources/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.2 - Supports METHODO et AUTRES EDITEURS/Talend/TOS_v7/Supports v1.0/Migration_Access_To_SQLite/Base csv/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" or [Folder Path] = \"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/Archives/2022-05-18 Formation Power BI/Sources de données/\") and ([Extension] = \".xlsx\")),",
+                "    #\"DimProduct xlsx_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\" = #\"Filtered Rows\"{[Name=\"DimProduct.xlsx\",#\"Folder Path\"=\"https://seenovatecom.sharepoint.com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3.6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"]}[Content],",
+                "    #\"Imported Excel Workbook\" = Excel.Workbook(#\"DimProduct xlsx_https://seenovatecom sharepoint com/sites/Suividesformations/Documents partages/General/3 - Formations AUTRES/3 6 - Formation Power BI/2023-06 Formation Power BI/Sources de données/\"),",
+                "    Tabelle1_Sheet = #\"Imported Excel Workbook\"{[Item=\"Tabelle1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Tabelle1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"ProductKey\", Int64.Type}, {\"ProductAlternateKey\", type text}, {\"ProductSubcategoryKey\", type text}, {\"EnglishProductSubcategoryName\", type text}, {\"WeightUnitMeasureCode\", type text}, {\"SizeUnitMeasureCode\", type text}, {\"EnglishProductName\", type text}, {\"SpanishProductName\", type text}, {\"FrenchProductName\", type text}, {\"StandardCost\", type text}, {\"FinishedGoodsFlag\", Int64.Type}, {\"Color\", type text}, {\"EnglishProductCategoryName\", type text}, {\"SafetyStockLevel\", Int64.Type}, {\"ReorderPoint\", Int64.Type}, {\"ListPrice\", type text}, {\"Size\", type text}, {\"SizeRange\", type text}, {\"Weight\", type any}, {\"DaysToManufacture\", Int64.Type}, {\"ProductLine\", type text}, {\"DealerPrice\", type text}, {\"Class\", type text}, {\"Style\", type text}, {\"ModelName\", type text}, {\"LargePhoto\", type text}, {\"EnglishDescription\", type text}, {\"FrenchDescription\", type text}, {\"ChineseDescription\", type text}, {\"ArabicDescription\", type text}, {\"HebrewDescription\", type text}, {\"ThaiDescription\", type text}, {\"GermanDescription\", type text}, {\"JapaneseDescription\", type text}, {\"TurkishDescription\", type text}, {\"StartDate\", type datetime}, {\"EndDate\", type text}, {\"Status\", type text}}),",
+                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Changed Type\", each ([FinishedGoodsFlag] = 1)),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Rows1\",{\"ProductKey\", \"EnglishProductSubcategoryName\", \"EnglishProductName\", \"StandardCost\", \"Color\", \"EnglishProductCategoryName\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Other Columns\",{ {\"StandardCost\", \"Standard Cost\"}, {\"EnglishProductSubcategoryName\", \"Subcategory\"}, {\"EnglishProductCategoryName\", \"Category\"}}),",
+                "    #\"Changed Type1\" = Table.NestedJoin(#\"Renamed Columns\", {\"Color\"}, Color, {\"Color\"}, \"Color.1\", JoinKind.LeftOuter),",
+                "    #\"Expanded Color.1\" = Table.ExpandTableColumn(#\"Changed Type1\", \"Color.1\", {\"Background Color Format\", \"Font Color Format\"}, {\"Background Color Format\", \"Font Color Format\"}),",
+                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Expanded Color.1\",{{\"Standard Cost\", Currency.Type}})",
+                "in",
+                "    #\"Changed Type2\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Date",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "f6c86188b49c412a82fa2e2efe3468de"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isDataTypeInferred": true,
+            "isKey": true,
+            "isNameInferred": true,
+            "lineageTag": "1ed74a34-d8d4-42eb-84fb-a1febb13c5a8",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "25ab0605-cc5e-4fd4-a1d7-296c0aa3413c",
+            "sourceColumn": "[Year]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Month",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "3ca4085e-f5a5-4467-9bdf-26ce775d8742",
+            "sourceColumn": "[Month]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Quarter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "dd56f5d4-eff2-4a15-a5ef-eae39c1df121",
+            "sourceColumn": "[Quarter]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Month Name",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "a8366122-ba0d-4604-b3c9-51a75889f04c",
+            "sortByColumn": "MonthKey",
+            "sourceColumn": "[Month Name]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Day Name",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "0cc303c7-0e55-4336-8fd2-3b2063fbf0b6",
+            "sourceColumn": "[Day Name]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "FiscalYear",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "\"FY\" & YEAR('Date'[Date]) + IF(MONTH('Date'[Date]) > 6, 1)",
+            "isDataTypeInferred": true,
+            "lineageTag": "a3e21ff4-10da-4757-a8f9-3977bb43e376",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "FiscalQuarter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "IF(([Month]>=1 && [Month]<4),\"FQ3\", IF(([Month]>=4 && [Month]<7),\"FQ4\", IF(([Month]>=7 && [Month]<10),\"FQ1\",\"FQ2\"))) ",
+            "isDataTypeInferred": true,
+            "lineageTag": "f3266c63-4729-4d26-bcda-f8d0a9e409c2",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthKey",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "(YEAR('Date'[Date]) * 100) + MONTH('Date'[Date])",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "74822666-2983-45a5-b839-246217793134",
+            "summarizeBy": "count",
+            "type": "calculated"
+          },
+          {
+            "name": "Week Number",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "WEEKNUM([DATE])",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "6aba37c9-b96b-4732-bb28-7ff05923a9bf",
+            "summarizeBy": "sum",
+            "type": "calculated"
+          },
+          {
+            "name": "Est dans les 2 dernières années fiscales",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "IF(YEAR('Date'[Date]) + IF(MONTH('Date'[Date]) > 6, 1) = (YEAR(NOW()) - 1) || YEAR('Date'[Date]) + IF(MONTH('Date'[Date]) > 6, 1) = YEAR(NOW()), 1, 0)",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "64f1b33e-4d58-42dd-9cfe-478f86791a25",
+            "summarizeBy": "sum",
+            "type": "calculated"
+          }
+        ],
+        "dataCategory": "Time",
+        "hierarchies": [
+          {
+            "name": "Fiscal",
+            "levels": [
+              {
+                "name": "FiscalYear",
+                "column": "FiscalYear",
+                "lineageTag": "80bf22de-482f-4d63-8fa1-6fcee446fca7",
+                "ordinal": 0
+              },
+              {
+                "name": "FiscalQuarter",
+                "column": "FiscalQuarter",
+                "lineageTag": "5a229742-6144-4339-99b1-f445f630da3b",
+                "ordinal": 1
+              },
+              {
+                "name": "Month",
+                "column": "Month",
+                "lineageTag": "0b04d314-e6a7-40ef-b818-fbabc05e63a5",
+                "ordinal": 2
+              }
+            ],
+            "lineageTag": "28189ffc-a97a-49ae-8c47-72935c2722d2"
+          }
+        ],
+        "lineageTag": "403423c3-a109-4300-88f6-2ec8135b61e9",
+        "partitions": [
+          {
+            "name": "Date-e4afb84b-3d60-4ac2-839e-8a85521f4a4a",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "",
+                "-- ce script créé une table du temps du 1er janvier 2018 à aujourd'hui ",
+                "    ADDCOLUMNS(CALENDARAUTO(), ",
+                "    \"Year\",YEAR([Date]), ",
+                "    \"Month\",MONTH([Date]), ",
+                "    \"Quarter\",QUARTER([Date]), ",
+                "    \"Month Name\",FORMAT([Date],\"MMM YY\"), ",
+                "    \"Day Name\",FORMAT([Date],\"DDD d MMM YY\")",
+                "    )",
+                "-- penser à trier la colonne Nom du mois par la colonne Mois ",
+                "-- penser à trier la colonne Nom du jour par la colonne Date ",
+                "-- penser à marquer la table de date comme référence",
+                ""
+              ],
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Remise",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "863bba53885a48618162b8bb0d894f56"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Remise",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "version": 0
+                }
+              }
+            ],
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "dc8dcd38-7c9f-4cf9-adb4-650f01c28a66",
+            "sourceColumn": "[Value]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "12c89fc9-c3b3-448a-a6c8-ecf967386d09",
+        "measures": [
+          {
+            "name": "Remise Value",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "SELECTEDVALUE('Remise'[Remise])",
+            "lineageTag": "e6f3d907-31d4-4458-8ffb-56ac006aa9ae"
+          },
+          {
+            "name": "DiscountSales",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"fr-FR\"}"
+              }
+            ],
+            "expression": "SUM(Sales[Sales])-SUM(Sales[Sales])*Remise[Remise Value]/100",
+            "formatString": "#,0.00\\ \"€\";-#,0.00\\ \"€\";#,0.00\\ \"€\"",
+            "lineageTag": "a8ea1ce9-e3e5-47f8-b803-f6de02883a66"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Remise",
+            "mode": "import",
+            "source": {
+              "expression": "GENERATESERIES(0, 80, 0.1)",
+              "type": "calculated"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
